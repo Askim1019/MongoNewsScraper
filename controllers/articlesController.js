@@ -3,12 +3,16 @@ var request = require("request");
 var cheerio = require("cheerio");
 var axios = require("axios");
 // Requiring our Comment and Article models
-var Comment = require("../models/Comment.js");
-var Article = require("../models/Article.js");
-
+/* var Comment = require("../models/Comment.js");
+var Article = require("../models/Article.js"); */
+var db = require('../models/index.js');
 module.exports = function (app) {
 
   //Routes
+  app.get("/", function(req, res) {
+    res.render("index");
+  });
+
   app.get("/scrape", function(req, res) {
     axios.get("http://www.chicagotribune.com/").then(function(response) {
       var $ = cheerio.load(response.data);

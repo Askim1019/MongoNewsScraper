@@ -1,0 +1,13 @@
+.background {
+  background-image: url("../images/newspaper.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 40vh;
+}
+
+.main-header {
+  margin: 0 auto;
+  font-size: 80px;
+  background-color: rgba(62, 57, 57, 0.8);
+  padding: 15px 15px;
+}
