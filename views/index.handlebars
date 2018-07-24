@@ -1,0 +1,15 @@
+<div class="main-content">
+  {{#each articles}}
+    <div class="row news-cards" id={{this.id}}>
+      <div class="col s12 m6">
+        <div class="card blue darken-1">
+          <h3 class="card-title"><a href="{{this.url}}">{{this.headline}}</a></h3>
+        </div>
+        <div class="card-action">
+          <p>{{this.summary}}</p>
+          <a class="waves-effect waves-light btn">Save Article</a>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

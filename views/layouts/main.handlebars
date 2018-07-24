@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+ 
 </head>
 <body>
   <nav>
@@ -20,11 +21,23 @@
       <ul id="nav-mobile" class="left hide-on-sm-and-down">
         <li><a href="#">Home</a></li>
         <li><a href="#">Saved Articles</a></li>
-        <li><a class="waves-effect waves-light btn">Scrape Articles</a></li>
+        <li><a class="waves-effect waves-light btn modal-trigger" id="scrapeBtn" href="#scrapeModal">Scrape Articles</a></li>
         <li><a class="waves-effect waves-light btn">Clear Articles</a></li>
       </ul>
     </div>
   </nav>
+
+  <!-- Modal Structure -->
+  <div id="scrapeModal" class="modal">
+    <div class="modal-header">
+      <h4>Scrape Results</h4>
+
+      <p id="articleCount"></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
 
   <div class="background valign-wrapper">
     <h2 class="main-header center white-text">News Scraper</h2>
