@@ -36,16 +36,9 @@ module.exports = function (app) {
         $("article").each(function(i, element) {
           var result = {};
 
-          result.headline = $(this)
-            .children("h2")
-            .text();
-          result.summary = $(this)
-            .children("p")
-            .text();
-          result.url = $(this)
-            .children("h2")
-            .children("a")
-            .attr("href");
+          result.headline = $(this).children("h2").text();
+          result.summary = $(this).children("p").text();
+          result.url = "http://chicagotribune.com/" + $(this).children("h2").children("a").attr("href");
           
 
           var repeat = false;
