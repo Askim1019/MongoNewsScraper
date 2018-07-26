@@ -41,3 +41,16 @@ html {
 #scrapeModal {
   border: 2px solid black;
 }
+
+.article-title h3 a{
+  color: white;
+}
+
+.saveBtn {
+  margin-top: 20px;
+}
+
+.article-summary {
+  font-weight: bold;
+  font-size: 15px;
+}

@@ -1,15 +1,25 @@
 <div class="main-content">
   {{#each articles}}
     <div class="row news-cards z-depth-4" id={{this.id}}>
-      <div class="col s12 m6">
-        <div class="card blue darken-1">
-          <h3 class="card-title"><a href={{this.url}}>{{this.headline}}</a></h3>
-        </div>
-        <div class="card-action">
-          <p>{{this.summary}}</p>
-          <a class="waves-effect waves-light btn">Save Article</a>
+      <div class="row">
+        <div class="col s12">
+          <div class="card article-title blue darken-1 row">
+            <div class="col s8">
+              <h3 class="card-title"><a href={{this.url}}>{{this.headline}}</a></h3>
+            </div>
+            <div class="col s4 saveBtn valign center">
+              <a class="waves-effect waves-light btn">Save Article</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col s12">
+          <div class="article-summary card-action">
+            <p>{{this.summary}}</p>
+          </div>
+        </div>
+      </div>
+     </div>
   {{/each}}
 </div>
