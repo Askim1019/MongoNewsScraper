@@ -46,7 +46,7 @@ html {
   color: white;
 }
 
-.saveBtnDiv {
+.saveBtnDiv, .deleteBtn, .commentBtn {
   margin-top: 20px;
 }
 

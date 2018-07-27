@@ -80,4 +80,81 @@ module.exports = function (app) {
     })
   });
 
+
+  app.get("/saved", function(req,res) {
+    db.Article.find({
+      saved: true
+    })
+    .then(function(dbArticle) {
+      var hbsObject = { 
+        articles: dbArticle
+      };
+      
+      res.render("saved", hbsObject);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+  });
+  
+  app.get("/articles/:id", function(req, res) {
+    db.Article.findOne({
+      _id: req.params.id
+    })
+    .populate("comment")
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+  });
+  
+  
+  // Create a comment
+  app.post("/articles/:id", function(req,res) {
+    db.Comment.create(req.body)
+      .then(function(dbComment) {
+        return db.Article.findByIdAndUpdate({
+          _id: req.params.id
+        }, {
+          $push: {
+            comment: dbComment._id
+          }
+        }, {
+          new: true
+        });
+      })
+      .catch(function(err) {
+        res.json(err);
+    });
+  });
+  
+  // Delete a saved article
+  app.post("/deletearticle/:id", function(req, res) {
+    db.Article.findByIdAndUpdate({
+      _id: req.params.id
+    }, {
+      saved: false
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    })
+  });
+  
+  // Delete a comment
+  app.post("/deletenote/:id", function(req,res) {
+    db.Comment.remove({
+      _id: req.params.id
+    })
+    .then(function(dbComment){
+      res.json(dbComment);
+    })
+    .catch(function(err) {
+      res.json(err);
+    })
+  });
 };
