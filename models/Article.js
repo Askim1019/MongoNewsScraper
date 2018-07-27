@@ -8,7 +8,8 @@ var ArticleSchema = new Schema({
   // `headline` is required and of type String
   headline: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   // `summary` is required and of type String
   summary: {
@@ -23,10 +24,12 @@ var ArticleSchema = new Schema({
     type: Boolean,
     default: false
   },
-  comment: {
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-  }
+  comment: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 // This creates our model from the above schema, using mongoose's model method

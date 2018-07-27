@@ -1,9 +1,10 @@
 <!-- Modal Structure -->
-<div id="commentModal" class="modal z-depth-4">
-  <div class="modal-header">
-    <div class="row">
-      <div class="col s12">
-        <h3 id="#commentModalTitle">{{!--Comments Modal Title here --}}</h3>
+<div id="commentModal" tabindex="-1" role="dialog" class="modal z-depth-4">
+  <div class="modal-dialog" role="document">
+    <div class="modal-header">
+      <div class="row">
+        <div class="col s12">
+          <h3 id="#commentModalTitle">{{!--Comments Modal Title here --}}</h3>
         </div>
       </div>
       <div class=" modal-body ">
@@ -11,51 +12,54 @@
           {{!-- display saved comments here --}}
         </div>
       </div>
-      <div class="row ">
-        <form class="col s12 ">
-          <div class="row ">
-            <div class="input-field col s12 ">
-             <textarea id="bodyinput " class="materialize-textarea "></textarea>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="bodyinput" class="materialize-textarea"></textarea>
               <label for="bodyinput ">Comment</label>
             </div>
           </div>
         </form>
       </div>
-      
+
       <div class="modal-footer ">
-        <a href="# " class="waves-effect waves-blue btn" id="saveCommentBtn ">Save Note</a>
+        <a href="#" class="waves-effect waves-blue btn" id="saveCommentBtn ">Save Comment</a>
       </div>
     </div>
-    
-    
   </div>
 
- <!-- Saved articles-->
+
+</div>
+
+<!-- Saved articles-->
 <div class="main-content ">
   {{#each articles}}
-    <div class="row news-cards z-depth-4 " id={{this.id}}>
-      <div class="row ">
-        <div class="col s12 ">
-          <div class="card article-title blue darken-1 row ">
-            <div class="col s6 ">
-              <h3 class="card-title "><a href={{this.url}}>{{this.headline}}</a></h3>
-            </div>
-            <div class="col s3 saveBtn valign center ">
-              <a class="waves-effect waves-light btn red deleteBtn ">Delete</a>
-            </div>
-            <div class="col s3 saveBtn valign center ">
-              <a href="#commentModal" class="waves-effect waves-light btn commentBtn modal-trigger" id="viewComments ">Comments</a>
-            </div>
+  <div class="row news-cards z-depth-4 " id={{this.id}}>
+    <div class="row ">
+      <div class="col s12 ">
+        <div class="card article-title blue darken-1 row ">
+          <div class="col s6 ">
+            <h3 class="card-title ">
+              <a href={{this.url}} target="_blank">{{this.headline}}</a>
+            </h3>
+          </div>
+          <div class="col s3 saveBtn valign center ">
+            <a class="waves-effect waves-light btn red deleteBtn" data-id={{this.id}}>Delete</a>
+          </div>
+          <div class="col s3 saveBtn valign center ">
+            <a href="#commentModal" class="waves-effect waves-light btn commentBtn modal-trigger" id="viewComments" data-id={{this.id}}>Comments {{this.comment.length}}</a>
           </div>
         </div>
       </div>
-      <div class="row ">
-        <div class="col s12 ">
-          <div class="article-summary card-action ">
-            <p>{{this.summary}}</p>
-          </div>
+    </div>
+    <div class="row ">
+      <div class="col s12 ">
+        <div class="article-summary card-action ">
+          <p>{{this.summary}}</p>
         </div>
       </div>
-     </div>
+    </div>
+  </div>
   {{/each}}
 </div>

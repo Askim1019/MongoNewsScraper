@@ -2,7 +2,7 @@ $(document).ready(function () {
   console.log("DOM ready");
   $("#scrapeModal").modal();
   $("#commentModal").modal();
-  
+
   $(document).on("click", "#scrapeBtn", function () {
     $.get("/scrape", function (data) {
       if (data.count) {
@@ -14,7 +14,14 @@ $(document).ready(function () {
     });
   });
 
-  $(document).on("click", "#saveBtn", function () {
+  // Scrape results modal OK button clicked
+  $(document).on("click", "#modalClose1", function () {
+    setTimeout(function () {
+      window.location = "/";
+    }, 1000);
+  });
+
+  $(document).on("click", "#saveArticleBtn", function () {
     var id = $(this).attr("data-id");
     $.ajax({
       method: "POST",
@@ -27,8 +34,9 @@ $(document).ready(function () {
 
 
 
-  $(document).on("click", "#viewNotes", function () {
+  $(document).on("click", "#viewComments", function () {
     var articleId = $(this).attr("data-id");
+    console.log("view button clicked and working");
     getComments(articleId);
   });
 
@@ -60,7 +68,7 @@ $(document).ready(function () {
   });
 
   // Save comment
-  $(document).on("click", "saveComment", function () {
+  $(document).on("click", "#saveCommentBtn", function () {
     var articleId = $(this).attr("data-id");
     var newComment = $("#bodyinput").val();
 
@@ -70,7 +78,7 @@ $(document).ready(function () {
       data: { body: newComment }
     })
       .then(function (data) {
-        getComments(articleId);
+        getComments(data.id);
       });
 
     $("#bodyinput").val("");
@@ -78,32 +86,38 @@ $(document).ready(function () {
 
 
   function getComments(articleId) {
-    $("#commentModalTitle").text("Article: " + data.headline);
-    $("#saveCommentBtn").attr("data-id", data._id);
-    $("#displayComments").empty();
+    $.ajax({
+      method: "GET",
+      url: "/articles/" + articleId
+    })
+      .then(function (data) {
+        /* $("#commentModal").modal(); */
+        $("#commentModalTitle").text("Article: " + data.headline);
+        $("#saveCommentBtn").attr("data-id", data._id);
+        $("#displayComments").empty();
 
-    if (data.comments.length) {
-      for (var i = 0; i < data.comment.length; i++) {
-        var card = $("<div>").addClass("card mb-2");
-        var cardBody = $("<div>").addClass("card-body").text(data.comment[i].body);
+        if (data.comment.length) {
+          for (var i = 0; i < data.comment.length; i++) {
+            var card = $("<div>").addClass("card mb-2");
+            var cardBody = $("<div>").addClass("card-body").text(data.comment[i].body);
 
-        // Delete button
-        var deleteButton = $("<button>").addClass("waves-effect waves-light btn");
-        deleteButton.attr("id", "deletecomment");
-        deleteButton.attr("data-id", data.comment[i]._id);
-        deleteButton.attr("data-article-id", data._id);
-        deleteButton.text("Delete");
+            // Delete button
+            var deleteButton = $("<button>").addClass("waves-effect waves-light btn");
+            deleteButton.attr("id", "deletecomment");
+            deleteButton.attr("data-id", data.comment[i]._id);
+            deleteButton.attr("data-article-id", data._id);
+            deleteButton.text("Delete");
 
-        cardBody.append(deleteButton);
-        card.append(cardBody);
-        $("#displayComments").append(card);
-      }
-    } else {
-      $("#displayComments").text("There are no comments here");
-    }
+            cardBody.append(deleteButton);
+            card.append(cardBody);
+            $("#displayComments").append(card);
+          }
+        } else {
+          $("#displayComments").text("There are no comments here");
+        }
 
-    $('#viewComments[data-id="' + data._id + '"]').text("Comments (" + data.comment.length + ")");
+        $('#viewComments[data-id="' + data._id + '"]').text("Comments (" + data.comment.length + ")");
+      });
   }
-
 
 });

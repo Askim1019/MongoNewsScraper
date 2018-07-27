@@ -125,6 +125,9 @@ module.exports = function (app) {
           new: true
         });
       })
+      .then(function(dbArticle) {
+        res.json(dbArticle);
+      })
       .catch(function(err) {
         res.json(err);
     });
