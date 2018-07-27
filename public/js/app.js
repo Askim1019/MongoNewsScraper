@@ -13,7 +13,16 @@ $(document).ready(function(){
     });
   });
 
-  
+  $(document).on("click", "#saveBtn" ,function() {
+    var id = $(this).attr("data-id");
+    $.ajax({
+      method: "POST",
+      url: "/savearticle/" + id
+    })
+    .then(function(data){
+      console.log(data);
+    });
+  });
 
 
 

@@ -11,7 +11,7 @@ module.exports = function (app) {
   //Routes
   app.get("/", function(req, res) {
     db.Article.find({
-      /* saved: false */
+     /*  saved: false */
     })
     .then(function (dbArticle) {
       var hbsObject = {
@@ -65,4 +65,19 @@ module.exports = function (app) {
       });
     });
   });
+
+  app.post("/savearticle/:id", function(req, res) {
+    db.Article.findByIdAndUpdate({
+      _id: req.params.id
+    }, {
+      saved: true
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    })
+  });
+
 };
